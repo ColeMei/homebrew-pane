@@ -8,8 +8,8 @@
 # The release workflow prints the sha256 in its job summary, so bumping is copy and paste.
 
 cask "pane" do
-  version "0.1.0"
-  sha256 "e630f3791aec06969043d4e757ea72103dc063b48cbac084e257e9f753041ec4"
+  version "0.2.0"
+  sha256 "14a649a5c04598d312bfaedf49f5008ae1aa30b9f88c4e1a01b630995c3e963d"
 
   url "https://github.com/ColeMei/pane/releases/download/v#{version}/Pane-#{version}.zip"
   name "Pane"
@@ -20,11 +20,21 @@ cask "pane" do
 
   app "Pane.app"
 
-  zap trash: "~/Library/Application Support/Pane"
+  # Enumerated rather than trashing the whole support directory, because it is no longer only the
+  # app's own leavings. Decision 35 put "Recently Deleted" in there — up to 30 days of notes the user
+  # deleted and can still get back — so `--zap` would have swept away recoverable documents as a side
+  # effect of uninstalling. Anything added here later has to answer the same question: is it Pane's,
+  # or is it the user's?
+  zap trash: [
+    "~/Library/Application Support/Pane/settings.json",
+    "~/Library/Application Support/Pane/state.json",
+    "~/Library/Application Support/Pane/Themes",
+  ]
 
-  # Deliberately NOT listing the vault. `zap` is for the app's own leavings, and the vault is the
-  # user's documents — the entire premise of the product is that those files are theirs and outlive
-  # the app. Uninstalling Pane must never be a way to lose them.
+  # Deliberately NOT listing the vault, and no longer the Recently Deleted folder either. `zap` is
+  # for the app's own leavings, and both of those are the user's documents — the entire premise of
+  # the product is that those files are theirs and outlive the app. Uninstalling Pane must never be
+  # a way to lose them.
 
   caveats <<~EOS
     Pane is unsigned — there is no Apple Developer ID behind it.
