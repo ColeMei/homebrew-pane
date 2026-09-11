@@ -8,8 +8,8 @@
 # The release workflow prints the sha256 in its job summary, so bumping is copy and paste.
 
 cask "pane" do
-  version "0.6.4"
-  sha256 "2b384f800b10789efc6a10896eda422776aab9b74b785d2fc573cd7636072d24"
+  version "0.6.5"
+  sha256 "ac640c07bd36a1b8463079cfa0c0e14716e84b8ad0988bb9d97eecba519bbd48"
 
   url "https://github.com/ColeMei/pane/releases/download/v#{version}/Pane-#{version}.dmg"
   name "Pane"
@@ -52,8 +52,10 @@ cask "pane" do
 
     Pane requests no privacy permissions at all: the global hotkey goes through
     RegisterEventHotKey, which needs no Accessibility access. The only request it
-    ever makes to the network is the version check under Settings > About, and
-    only when you press that button. Your notes are plain .md files in
-    ~/Documents/Pane.
+    ever makes to the network is asking GitHub whether a newer release exists --
+    when you press the button under Settings > About, and once a day when you
+    summon the pane. It downloads and installs nothing, and sends nothing about
+    you. Switch the daily one off under Settings > General. Your notes are plain
+    .md files in ~/Documents/Pane.
   EOS
 end
