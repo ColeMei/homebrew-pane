@@ -1,11 +1,13 @@
 # Homebrew cask for Pane.
 #
 # This file is the source copy. The one Homebrew actually reads lives in the tap repo
-# `ColeMei/homebrew-pane` as `Casks/pane.rb`; releasing copies this there with the version, url and
-# sha256 updated. Keeping a copy here means the caveat text and the cask's shape are reviewed in the
-# same pull request as the code they describe, instead of drifting in a repo nobody opens.
+# `ColeMei/homebrew-pane` as `Casks/pane.rb`. Keeping a copy here means the caveat text and the
+# cask's shape are reviewed in the same pull request as the code they describe, instead of drifting
+# in a repo nobody opens.
 #
-# The release workflow prints the sha256 in its job summary, so bumping is copy and paste.
+# Publishing a release runs `.github/workflows/cask.yml`, which writes the new version and sha256
+# into this file, copies it to the tap, and commits it back to dev. Edit anything here except those
+# two lines; the next release carries the edit to the tap.
 
 cask "pane" do
   version "0.7.2"
@@ -42,13 +44,9 @@ cask "pane" do
     On recent macOS that means Gatekeeper reports the app as "damaged and can't be
     opened", and right-clicking → Open no longer gets past it. It is not damaged;
     that is simply what an unsigned app looks like now. Clear the quarantine flag
-    once and it launches normally from then on:
+    after each install or upgrade and it launches normally:
 
       xattr -dr com.apple.quarantine /Applications/Pane.app
-
-    Or skip the flag at install time:
-
-      brew install --cask --no-quarantine ColeMei/pane/pane
 
     Pane requests no privacy permissions at all: the global hotkey goes through
     RegisterEventHotKey, which needs no Accessibility access. The only request it
