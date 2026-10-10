@@ -10,8 +10,8 @@
 # two lines; the next release carries the edit to the tap.
 
 cask "pane" do
-  version "0.7.2"
-  sha256 "2e02341e2fdc23153c077f6b9e2481f08730edad9ef0543a4bc2db138041d2e4"
+  version "0.7.3"
+  sha256 "56b622d1a5035eb229b0b7c55334ac659bad0fa8c04b61bbf1b55ba230f1da89"
 
   url "https://github.com/ColeMei/pane/releases/download/v#{version}/Pane-#{version}.dmg"
   name "Pane"
@@ -19,6 +19,8 @@ cask "pane" do
   homepage "https://github.com/ColeMei/pane"
 
   depends_on macos: :sonoma
+  # Pane installs its own updates (Sparkle), so `brew upgrade` leaves it alone unless --greedy.
+  auto_updates true
 
   app "Pane.app"
 
@@ -52,8 +54,9 @@ cask "pane" do
     RegisterEventHotKey, which needs no Accessibility access. The only request it
     ever makes to the network is asking GitHub whether a newer release exists --
     when you press the button under Settings > About, and once a day when you
-    summon the pane. It downloads and installs nothing, and sends nothing about
-    you. Switch the daily one off under Settings > General. Your notes are plain
-    .md files in ~/Documents/Pane.
+    summon the pane -- and it sends nothing about you. Switch the daily one off
+    under Settings > General. An update is downloaded and installed only when you
+    choose "Update to ..." from the menu bar item, and only if it carries the
+    project's update signature. Your notes are plain .md files in ~/Documents/Pane.
   EOS
 end
